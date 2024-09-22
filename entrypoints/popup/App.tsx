@@ -1,29 +1,51 @@
-import { useState } from 'react';
-import reactLogo from '@/assets/react.svg';
+import { useState, useEffect } from 'react';
+import Toggle from 'react-toggle'
+import { storage } from 'wxt/storage';
 import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
+  // Set up default settings
+  storage.defineItem('local:replaceFonts', {
+    fallback: true,
+  });
+  const [rep, setRep] = useState(null);
+  useEffect(() => {
+    // React advises to declare the async function directly inside useEffect
+    async function getSetttings() {
+      const rep = await storage.getItem('local:replaceFonts');
+      setRep(rep);
+    };
 
+    // You need to restrict it at some point
+    // This is just dummy code and should be replaced by actual
+    getSetttings();
+  }, []);
+
+  const handleFontChange = async () => {
+    const val = await storage.getItem('local:replaceFonts');  // Get user's choice if we are replacing fonts
+    await storage.setItem('local:replaceFonts', !val);  // Invert the result
+  };
+
+  // onChange handler with async call
+  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+      try {
+          // Call async function and get result
+          const result = await handleFontChange();
+      } catch (error) {
+          console.error('Error:', error);
+      }
+  };
   return (
     <>
-      <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>WXT + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <label>
+        <Toggle
+          defaultChecked={rep}
+          icons={false}
+          onChange={handleChange} />
+        <span>Replace Fonts</span>
+      </label>
       </div>
-      <p className="read-the-docs">
-        Click on the WXT and React logos to learn more
-      </p>
     </>
   );
 }
