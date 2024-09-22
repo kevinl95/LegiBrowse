@@ -8,7 +8,7 @@ export default defineConfig({
     name: "LegiBrowse",
     version: "1.0",
     description: "A browser extension that helps low-vision users by replacing fonts in webpages where possible with a hyperlegible font. ",
-    permissions: ["activeTab"],
+    permissions: ["activeTab", "storage"],
     content_scripts: [
       {
         "matches": ["<all_urls>"],
