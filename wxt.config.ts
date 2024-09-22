@@ -15,6 +15,12 @@ export default defineConfig({
         "js": ["contentScript.js"],
         "run_at": "document_end"
       }
-    ]
+    ],
+    "icons": {
+        "16": "icon/icon16.png",
+        "32": "icon/icon32.png",
+        "48": "icon/icon48.png",
+        "128": "icon/icon128.png"
+      },
     },
 });
