@@ -1,11 +1,10 @@
 import { storage } from 'wxt/storage';
 
-const onwatch = storage.watch<boolean>('local:replaceFonts', (newBool, oldBool) => {
-  console.log('Font replacement setting changed:', { newBool, oldBool });
-});
-
 export default defineUnlistedScript(() => {
   (async function() {
+        const onwatch = storage.watch<boolean>('local:replaceFonts', (newBool, oldBool) => {
+          console.log('Font replacement setting changed:', { newBool, oldBool });
+        });
         const replace = await storage.getItem('local:replaceFonts');
         if (replace) {  // Only replace the fonts if the user has toggled this setting on
           const legibleFont = "Atkinson Hyperlegible";

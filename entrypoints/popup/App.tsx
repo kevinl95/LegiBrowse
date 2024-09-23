@@ -1,19 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import Toggle from 'react-toggle'
+import "react-toggle/style.css"
 import { storage } from 'wxt/storage';
-import './App.css';
 
 function App() {
   // Set up default settings
   storage.defineItem('local:replaceFonts', {
     fallback: true,
   });
-  const [rep, setRep] = useState(null);
+  const [rep, setRep] = useState(true);
   useEffect(() => {
     // React advises to declare the async function directly inside useEffect
     async function getSetttings() {
-      const rep = await storage.getItem('local:replaceFonts');
-      setRep(rep);
+      let rep = await storage.getItem('local:replaceFonts');
+      console.log(rep)
+      if (rep === null) {
+        await storage.setItem('local:replaceFonts', true)
+        rep = true;
+      }
+      setRep(rep => rep);
     };
 
     // You need to restrict it at some point
@@ -22,6 +27,7 @@ function App() {
   }, []);
 
   const handleFontChange = async () => {
+    console.log("Called!")
     const val = await storage.getItem('local:replaceFonts');  // Get user's choice if we are replacing fonts
     await storage.setItem('local:replaceFonts', !val);  // Invert the result
   };
@@ -30,22 +36,19 @@ function App() {
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
       try {
           // Call async function and get result
-          const result = await handleFontChange();
+          await handleFontChange();
       } catch (error) {
           console.error('Error:', error);
       }
   };
   return (
     <>
-      <div className="card">
-      <label>
-        <Toggle
-          defaultChecked={rep}
-          icons={false}
-          onChange={handleChange} />
-        <span>Replace Fonts</span>
-      </label>
-      </div>
+      <Toggle
+        id='font-status'
+        defaultChecked={Boolean(rep)}
+        aria-labelledby='font-label'
+        onChange={handleChange} />
+      <span id='font-label'>Replace Page Fonts</span>
     </>
   );
 }
