@@ -1,37 +1,35 @@
-import { useState, useEffect, SetStateAction } from 'react';
+import { React, useEffect } from 'react';
+import { createStorage } from "unstorage";
+import localStorageDriver from 'unstorage/drivers/localstorage';
 import Toggle from 'react-toggle'
 import "react-toggle/style.css"
-import { storage } from 'wxt/storage';
 
 function App() {
   // Set up default settings
-  storage.defineItem('local:replaceFonts', {
-    fallback: true,
-  });
-  const [rep, setRep] = useState(true);
+  const storage = createStorage({
+    driver: localStorageDriver(),
+  });  
+  let [rep, setRep] = useState(true);
   useEffect(() => {
     // React advises to declare the async function directly inside useEffect
     async function getSetttings() {
-      let rep = await storage.getItem('local:replaceFonts');
-      console.log(rep)
-      if (rep === null) {
-        await storage.setItem('local:replaceFonts', true)
+      const settingsPresent = await storage.hasItem("replaceFonts");
+      if (settingsPresent) {
+        rep = await storage.getItem('replaceFonts') as boolean;
+      } else {
+        await storage.setItem("replaceFonts", true);
         rep = true;
       }
-      setRep(rep => rep);
-    };
-
-    // You need to restrict it at some point
-    // This is just dummy code and should be replaced by actual
+      setRep(rep);
+    }
     getSetttings();
-  }, []);
+  }, [rep]);
 
   const handleFontChange = async () => {
-    console.log("Called!")
-    const val = await storage.getItem('local:replaceFonts');  // Get user's choice if we are replacing fonts
-    await storage.setItem('local:replaceFonts', !val);  // Invert the result
+    rep = !rep;
+    await storage.setItem("replaceFonts", rep);
+    setRep(rep);
   };
-
   // onChange handler with async call
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
       try {
@@ -45,7 +43,7 @@ function App() {
     <>
       <Toggle
         id='font-status'
-        defaultChecked={Boolean(rep)}
+        checked={rep}
         aria-labelledby='font-label'
         onChange={handleChange} />
       <span id='font-label'>Replace Page Fonts</span>
