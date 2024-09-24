@@ -1,23 +1,20 @@
-import { React, useEffect } from 'react';
-import { createStorage } from "unstorage";
-import localStorageDriver from 'unstorage/drivers/localstorage';
+import { useEffect } from 'react';
+import React from 'react';
+import { storage } from 'wxt/storage';
 import Toggle from 'react-toggle'
 import "react-toggle/style.css"
 
 function App() {
   // Set up default settings
-  const storage = createStorage({
-    driver: localStorageDriver(),
-  });  
   let [rep, setRep] = useState(true);
   useEffect(() => {
     // React advises to declare the async function directly inside useEffect
     async function getSetttings() {
-      const settingsPresent = await storage.hasItem("replaceFonts");
-      if (settingsPresent) {
-        rep = await storage.getItem('replaceFonts') as boolean;
+      const settingsPresent = await storage.getItem('local:replaceFonts');
+      if (settingsPresent != null) {
+        rep = Boolean(settingsPresent)
       } else {
-        await storage.setItem("replaceFonts", true);
+        await storage.setItem("local:replaceFonts", true);
         rep = true;
       }
       setRep(rep);
@@ -25,16 +22,21 @@ function App() {
     getSetttings();
   }, [rep]);
 
-  const handleFontChange = async () => {
+  const handleFontReplaceChange = async () => {
     rep = !rep;
-    await storage.setItem("replaceFonts", rep);
+    await storage.setItem("local:replaceFonts", rep);
     setRep(rep);
   };
   // onChange handler with async call
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
       try {
           // Call async function and get result
-          await handleFontChange();
+          await handleFontReplaceChange();
+          // Refresh the tab
+          browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+            var activeTab = tabs[0];
+            browser.tabs.reload(activeTab.id); // Refresh the active tab
+          });
       } catch (error) {
           console.error('Error:', error);
       }

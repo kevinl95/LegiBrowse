@@ -1,12 +1,8 @@
-import { createStorage } from "unstorage";
-import localStorageDriver from 'unstorage/drivers/localstorage';
+import { storage } from 'wxt/storage';
 
 export default defineUnlistedScript(() => {
   (async function() {
-      const storage = createStorage({
-        driver: localStorageDriver(),
-      });
-      const replace = await storage.getItem('replaceFonts');
+      let replace = Boolean(await storage.getItem("local:replaceFonts"));
       if (replace) {  // Only replace the fonts if the user has toggled this setting on
         const legibleFont = "Atkinson Hyperlegible";
         const link = document.createElement("link");
