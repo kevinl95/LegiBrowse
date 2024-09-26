@@ -2,7 +2,11 @@ import { storage } from 'wxt/storage';
 
 export default defineUnlistedScript(() => {
   (async function() {
-      let replace = Boolean(await storage.getItem("local:replaceFonts"));
+      let ret = await storage.getItem("local:replaceFonts")
+      if (ret === null) {
+        ret = true;
+      }
+      let replace = Boolean(ret);
       if (replace) {  // Only replace the fonts if the user has toggled this setting on
         const legibleFont = "Atkinson Hyperlegible";
         const link = document.createElement("link");
