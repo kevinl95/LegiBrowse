@@ -8,7 +8,6 @@ export default defineUnlistedScript(() => {
       }
       let replace = Boolean(ret);
       if (replace) {  // Only replace the fonts if the user has toggled this setting on
-        const legibleFont = "Atkinson Hyperlegible";
         const link = document.createElement("link");
         link.rel = 'stylesheet';  // Specifies the relationship of the link
         link.href = 'https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible';  // URL of the font
@@ -17,7 +16,7 @@ export default defineUnlistedScript(() => {
         const style = document.createElement("style");
         style.innerHTML = `
           * {
-            font-family: '${legibleFont}' !important;
+            font-family: Atkinson Hyperlegible !important;
           }
         `;
         

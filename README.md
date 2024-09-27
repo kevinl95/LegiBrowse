@@ -12,7 +12,7 @@ Why use LegiBrowse?
 
 ## Development
 
-LegiBrowse uses the [WXT web extension framework](https://wxt.dev/). It can be built for Firefox, Chrome, and Edge.
+LegiBrowse uses the [WXT web extension framework](https://wxt.dev/). It can be built for Chromium web browsers..
 
 [Install pnpm before continuing.](https://pnpm.io/)
 
@@ -24,7 +24,7 @@ Run this command to build the extension and run the development server locally. 
 pnpm dev
 ```
 
-To build a bundle for distribution, run the following replacing <browser> with one of firefox, chrome, or edge depending on your intended target:
+To build a bundle for distribution, run the following replacing <browser> with one of chrome, or edge depending on your intended target:
 
 ```
 pnpm wxt build -b <browser>
