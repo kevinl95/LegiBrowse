@@ -24,7 +24,7 @@ Run this command to build the extension and run the development server locally. 
 pnpm dev
 ```
 
-To build a bundle for distribution, run the following replacing <browser> with one of chrome, or edge depending on your intended target:
+To build a bundle for distribution, run the following replacing <browser> with one of chrome or edge depending on your intended target:
 
 ```
 pnpm wxt build -b <browser>
