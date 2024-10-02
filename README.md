@@ -2,7 +2,7 @@
 
 ![LegiBrowse logo](assets/legibrowse.png)
 
-[![Available in the Chrome Web Store](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/tbyBjqi7Zu733AAKA5n4.png)](https://chromewebstore.google.com/detail/legibrowse/ildkgfaaplpfoaiekfmajbemjadppjne)[![Available For Microsoft Edge](https://lh3.googleusercontent.com/LZFhGMieTbA4bzdmx8_4wT4-sxBZPGNIt-mWtBQf0-op99yXDICytIqbvlBoaKB5YzuTAcIMq-IzLhDs5tNvhwxq7pO26VR6kfx6ggkE1cUw9dj6Qlb6xBWgKPhRCnnwDQ=w1280)](https://microsoftedge.microsoft.com/addons/detail/legibrowse/glplkehkcnfchhdnjcebeghnkabmefgo)
+[![Available in the Chrome Web Store](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/tbyBjqi7Zu733AAKA5n4.png)](https://chromewebstore.google.com/detail/legibrowse/ildkgfaaplpfoaiekfmajbemjadppjne)[![Available For Microsoft Edge](https://user-images.githubusercontent.com/78568641/212470539-dd4d22a0-3af8-4fa7-9671-6df5b2e26a70.png)](https://microsoftedge.microsoft.com/addons/detail/legibrowse/glplkehkcnfchhdnjcebeghnkabmefgo)
 
 Do you find certain web fonts are hard to read or strain your eyes while browsing? LegiBrowse is designed to improve your online reading experience by automatically replacing all fonts on a webpage with the highly legible Atkinson Hyperlegible font.
 
